@@ -1,5 +1,4 @@
-
-        let gameActive = false;
+let gameActive = false;
         let currentLevel = 1;
         let timeLeft = 30;
         let startTime = 0;
@@ -300,4 +299,13 @@
             }
             lastTouchEnd = now;
         }, false);
-    
+
+        document.getElementById('nextLevelBtn').addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            nextLevel();
+        });
+
+        document.querySelector('#gameComplete button[onclick="restartGame()"]').addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            restartGame();
+        });
