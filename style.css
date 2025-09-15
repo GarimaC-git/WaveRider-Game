@@ -1,0 +1,292 @@
+ * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(180deg, #001122 0%, #003366 50%, #004477 100%);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #gameContainer {
+            width: 100vw;
+            height: 100vh;
+            max-width: 400px;
+            max-height: 700px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            background: linear-gradient(180deg, #87CEEB 0%, #4682B4 50%, #191970 100%);
+        }
+
+        #gameArea {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            background: linear-gradient(180deg, 
+                rgba(135,206,235,0.3) 0%, 
+                rgba(70,130,180,0.5) 30%, 
+                rgba(25,25,112,0.8) 70%,
+                rgba(0,0,139,1) 100%);
+        }
+
+        #startScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #001122 0%, #004477 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+            z-index: 300;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            background: linear-gradient(45deg, #00bfff, #1e90ff, #4169e1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .instructions {
+            font-size: 18px;
+            margin-bottom: 30px;
+            max-width: 320px;
+            line-height: 1.6;
+            color: #b0e0e6;
+        }
+
+        button {
+            background: linear-gradient(45deg, #00bfff, #1e90ff);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        button:hover, button:active {
+            background: linear-gradient(45deg, #1e90ff, #4169e1);
+            transform: translateY(-2px);
+            box-shadow: 0 7px 20px rgba(0,0,0,0.4);
+        }
+
+        .boat {
+            position: absolute;
+            width: 40px;
+            height: 30px;
+            z-index: 100;
+            transition: all 0.1s ease-out;
+        }
+
+        .boat::before {
+            content: '⛵';
+            font-size: 35px;
+            position: absolute;
+            top: -5px;
+            left: -2px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+            transform-origin: center;
+        }
+
+        .goal {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ffd700 0%, #ffed4e 50%, #ffc107 100%);
+            border-radius: 50%;
+            border: 3px solid #fff;
+            box-shadow: 0 0 30px rgba(255,215,0,0.8), inset 0 0 20px rgba(255,255,255,0.3);
+            animation: goalPulse 2s infinite alternate;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .goal::after {
+            content: '🏁';
+        }
+
+        @keyframes goalPulse {
+            0% { box-shadow: 0 0 30px rgba(255,215,0,0.8), inset 0 0 20px rgba(255,255,255,0.3); }
+            100% { box-shadow: 0 0 50px rgba(255,215,0,1), inset 0 0 30px rgba(255,255,255,0.5); }
+        }
+
+        .wave-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255,255,255,0.4) 0%, 
+                rgba(135,206,235,0.6) 30%, 
+                rgba(70,130,180,0.4) 60%,
+                transparent 100%);
+            pointer-events: none;
+            z-index: 20;
+            animation: rippleExpand 2s ease-out forwards;
+        }
+
+        @keyframes rippleExpand {
+            0% {
+                width: 20px;
+                height: 20px;
+                opacity: 0.8;
+            }
+            100% {
+                width: 200px;
+                height: 200px;
+                opacity: 0;
+            }
+        }
+
+        .wave-height {
+            position: absolute;
+            width: 100%;
+            background: linear-gradient(90deg, 
+                rgba(255,255,255,0.2) 0%, 
+                rgba(135,206,235,0.4) 50%, 
+                rgba(255,255,255,0.2) 100%);
+            pointer-events: none;
+            z-index: 30;
+            border-radius: 50px;
+            animation: waveFlow 1.5s ease-out forwards;
+        }
+
+        @keyframes waveFlow {
+            0% {
+                height: 3px;
+                opacity: 0.8;
+                transform: scaleX(0);
+            }
+            50% {
+                height: 8px;
+                opacity: 1;
+                transform: scaleX(1);
+            }
+            100% {
+                height: 2px;
+                opacity: 0;
+                transform: scaleX(1.2);
+            }
+        }
+
+        #ui {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 200;
+            color: white;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+        }
+
+        #level { font-size: 22px; }
+        #timer { font-size: 20px; }
+
+        #gameComplete {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0,50,100,0.95);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            display: none;
+            z-index: 300;
+            border: 2px solid #00bfff;
+            box-shadow: 0 0 30px rgba(0,191,255,0.5);
+        }
+
+        .success-message {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #00bfff;
+        }
+
+        .level-complete {
+            animation: levelWin 0.5s ease-out;
+        }
+
+        @keyframes levelWin {
+            0% { transform: scale(1); background: rgba(0,50,100,0.95); }
+            50% { transform: scale(1.05); background: rgba(0,100,200,0.95); }
+            100% { transform: scale(1); background: rgba(0,50,100,0.95); }
+        }
+
+        .instruction-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            text-align: center;
+            z-index: 150;
+            animation: hintFade 3s ease-in-out infinite;
+        }
+
+        @keyframes hintFade {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+        }
+
+        .wave-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(255,255,255,0.6);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 25;
+            animation: particleFloat 2s ease-out forwards;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0.8;
+                transform: translateY(0) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.3);
+            }
+        }
+
+        @media (max-width: 480px) {
+            #gameContainer {
+                border-radius: 0;
+                max-width: 100vw;
+                max-height: 100vh;
+            }
+            
+            h1 { font-size: 32px; }
+            .instructions { font-size: 16px; max-width: 280px; }
+            #level, #timer { font-size: 18px; }
+        }

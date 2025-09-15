@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wave Rider</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div id="gameContainer">
+        <div id="startScreen">
+            <h1>🌊 Wave Rider</h1>
+            <div class="instructions">
+                Help the sailboat reach the golden goal!<br><br>
+                <strong>Tap anywhere</strong> to create waves<br>
+                Time your taps so the boat can surf the waves you make<br><br>
+                Ride the waves to victory! 🏆
+            </div>
+            <button onclick="startGame()">Set Sail!</button>
+        </div>
+
+        <div id="gameArea">
+            <div id="ui">
+                <div id="level">Level 1</div>
+                <div id="timer">Time: 30</div>
+            </div>
+            
+            <div class="instruction-hint">Tap to create waves! 💫</div>
+            
+            <div id="gameComplete">
+                <div class="success-message">🏆 Level Complete!</div>
+                <p id="completionTime">Time: 0s</p>
+                <button onclick="nextLevel()">Next Wave!</button>
+                <button onclick="restartGame()" style="margin-left: 10px; background: rgba(100,100,100,0.8);">Restart</button>
+            </div>
+        </div>
+    </div>
+<script src="game.js"></script>
+    
+</body>
+</html>
